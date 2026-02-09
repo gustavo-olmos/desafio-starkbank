@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Desafio Starkbank</name>
+
 	<description>Desafio Técnico Starkbank</description>
 	<url/>
 	<licenses>
@@ -22,14 +23,14 @@
 		<developer/>
 	</developers>
 	<modules>
-		<module>services</module>
 		<module>repository</module>
 		<module>usecases</module>
 		<module>web</module>
 		<module>input</module>
 		<module>output</module>
 		<module>application</module>
-	</modules>
+        <module>authentication</module>
+    </modules>
 	<scm>
 		<connection/>
 		<developerConnection/>

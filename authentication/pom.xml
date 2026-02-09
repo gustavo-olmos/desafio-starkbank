@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>services</artifactId>
+    <artifactId>authentication</artifactId>
 
     <properties>
         <maven.compiler.source>25</maven.compiler.source>
