@@ -1,4 +1,4 @@
-package com.desafio.starkbank.repository;
+package com.desafio.starkbank.boundary.repository;
 
 public interface WebhookRepository
 {

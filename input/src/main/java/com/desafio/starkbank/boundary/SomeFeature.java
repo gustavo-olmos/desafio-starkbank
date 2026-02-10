@@ -1,4 +1,4 @@
 package com.desafio.starkbank.boundary;
 
-public record ExampleOutputDTO() {
+public interface SomeFeature {
 }

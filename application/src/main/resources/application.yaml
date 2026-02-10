@@ -1,3 +1,27 @@
+server:
+  servlet:
+    context-path: /desafio-starkbank
+
 spring:
   application:
     name: Desafio Starkbank
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+
+springdoc:
+  api-docs:
+    path: /openapi
+    version: OPENAPI_3_0
+  swagger-ui:
+    path: /swagger-ui.html
+  info:
+    title: "Desafio Técnico - Starkbank"
+    version: "1.0.0"

@@ -1,6 +1,7 @@
-package com.desafio.starkbank;
+package com.desafio.starkbank.implementation;
 
-import com.desafio.starkbank.repository.WebhookRepository;
+import com.desafio.starkbank.boundary.repository.WebhookRepository;
+import com.desafio.starkbank.interfaces.InvoiceJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

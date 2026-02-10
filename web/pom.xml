@@ -19,14 +19,9 @@
     <dependencies>
         <dependency>
             <groupId>com.desafio.starkbank</groupId>
-            <artifactId>usecases</artifactId>
+            <artifactId>input</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 

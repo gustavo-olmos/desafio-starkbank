@@ -1,4 +1,4 @@
-package com.desafio.starkbank;
+package com.desafio.starkbank.interfaces;
 
 import com.desafio.starkbank.data.InvoiceModel;
 import org.springframework.data.jpa.repository.JpaRepository;
