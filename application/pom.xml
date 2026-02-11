@@ -26,6 +26,12 @@
         </dependency>
         <dependency>
             <groupId>com.desafio.starkbank</groupId>
+            <artifactId>clients</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.desafio.starkbank</groupId>
             <artifactId>configuration</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
@@ -45,6 +51,12 @@
         <dependency>
             <groupId>com.desafio.starkbank</groupId>
             <artifactId>repository</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.desafio.starkbank</groupId>
+            <artifactId>services</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

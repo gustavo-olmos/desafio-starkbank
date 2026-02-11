@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -20,8 +17,11 @@ public class WebhookController
 
     @PostMapping
     @Operation(summary = "Adiciona lembrete")
-    public ResponseEntity<Void> salvar(@RequestBody String eventMessage) {
-        useCase.process(eventMessage);
+    public ResponseEntity<Void> receive(
+            @RequestBody String eventMessage,
+            @RequestHeader(name = "Digital-Signature", required = false) String signature
+    ) {
+        useCase.handle(eventMessage, signature);
 
         return ResponseEntity.ok().build();
     }
