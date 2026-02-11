@@ -15,7 +15,7 @@ public class InvoiceModel
     private Long id;
 
     @Column(name = "uk_event", unique = true, nullable = false)
-    private Long eventId;
+    private String eventId;
 
     @Column(name = "dh_created_at", nullable = false)
     private OffsetDateTime createdAt;

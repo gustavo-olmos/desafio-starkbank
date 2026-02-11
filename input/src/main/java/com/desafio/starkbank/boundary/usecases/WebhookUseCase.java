@@ -1,4 +1,4 @@
-package com.desafio.starkbank.boundary;
+package com.desafio.starkbank.boundary.usecases;
 
 public interface WebhookUseCase
 {

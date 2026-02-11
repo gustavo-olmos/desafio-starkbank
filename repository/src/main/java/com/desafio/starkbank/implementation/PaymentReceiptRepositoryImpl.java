@@ -18,13 +18,13 @@ public class PaymentReceiptRepositoryImpl implements PaymentReceiptRepository
     private final PaymentReceiptJpaRepository jpaRepository;
 
     @Override
-    public void save(WebhookEventOutputDTO receiptOutputDTO, UUID transferId, Long received, Long net) {
+    public void save(WebhookEventOutputDTO receiptOutputDTO, String transferId, Long net) {
         PaymentModel payment = new PaymentModel();
         payment.setEventId(receiptOutputDTO.eventId());
         payment.setInvoiceId(receiptOutputDTO.invoiceId());
         payment.setTransferId(transferId);
-        payment.setReceivedAmount(BigDecimal.valueOf(received));
-        payment.setFeeAmount(receiptOutputDTO.fee());
+        payment.setReceivedAmount(BigDecimal.valueOf(receiptOutputDTO.amountReceivedInCents().longValue()));
+        payment.setFeeAmount(BigDecimal.valueOf(receiptOutputDTO.feeInCents()));
         payment.setNetAmount(BigDecimal.valueOf(net));
         payment.setCreatedAt(OffsetDateTime.now());
 

@@ -27,12 +27,14 @@
 		<module>usecases</module>
 		<module>web</module>
 		<module>input</module>
+		<module>job</module>
 		<module>output</module>
 		<module>application</module>
         <module>authentication</module>
 		<module>configuration</module>
 		<module>services</module>
         <module>clients</module>
+        <module>domain</module>
     </modules>
 	<scm>
 		<connection/>
@@ -87,6 +89,13 @@
 			<artifactId>h2</artifactId>
 			<version>2.4.240</version>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- lib: sdk-starkbank -->
+		<dependency>
+			<groupId>com.starkbank</groupId>
+			<artifactId>sdk</artifactId>
+			<version>2.25.0</version>
 		</dependency>
 	</dependencies>
 

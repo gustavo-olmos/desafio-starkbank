@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InvoiceJpaRepository extends JpaRepository<InvoiceModel, Long>
 {
-    boolean existsByEventId(Long eventId);
+    boolean existsByEventId(String eventId);
 }

@@ -17,13 +17,13 @@ public class PaymentModel
     private Long id;
 
     @Column(name = "id_event", nullable = false)
-    private Long eventId;
+    private String eventId;
 
     @Column(name = "id_invoice", nullable = false)
-    private Long invoiceId;
+    private String invoiceId;
 
     @Column(name = "id_transfer", nullable = false)
-    private UUID transferId;
+    private String transferId;
 
     @Column(name = "nr_payment_received", nullable = false)
     private BigDecimal receivedAmount;

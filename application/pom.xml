@@ -38,7 +38,19 @@
         </dependency>
         <dependency>
             <groupId>com.desafio.starkbank</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.desafio.starkbank</groupId>
             <artifactId>input</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.desafio.starkbank</groupId>
+            <artifactId>job</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

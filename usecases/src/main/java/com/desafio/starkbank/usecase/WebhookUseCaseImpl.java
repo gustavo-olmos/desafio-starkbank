@@ -1,27 +1,27 @@
 package com.desafio.starkbank.usecase;
 
-import com.desafio.starkbank.boundary.WebhookUseCase;
-import com.desafio.starkbank.boundary.clients.StarkbankSandboxClient;
+import com.desafio.starkbank.boundary.clients.TransferClient;
 import com.desafio.starkbank.boundary.dto.WebhookEventOutputDTO;
+import com.desafio.starkbank.boundary.exception.WebhookEventHandlerException;
 import com.desafio.starkbank.boundary.repository.PaymentReceiptRepository;
 import com.desafio.starkbank.boundary.repository.WebhookEventRepository;
 import com.desafio.starkbank.boundary.service.EventParserService;
+import com.desafio.starkbank.boundary.usecases.WebhookUseCase;
+import com.desafio.starkbank.domain.data.InvoiceTransactionDomain;
+import com.desafio.starkbank.domain.exception.InsufficientFundsForTransferException;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.UUID;
-
 @Service
 @AllArgsConstructor
-public class WebhookUseCaseImpl implements WebhookUseCase
-{
+public class WebhookUseCaseImpl implements WebhookUseCase {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    private final EventParserService starkbankService;
-    private final StarkbankSandboxClient sandboxClient;
+    private final TransferClient transferClient;
+    private final EventParserService parserService;
     private final WebhookEventRepository eventRepository;
     private final PaymentReceiptRepository receiptRepository;
 
@@ -40,25 +40,36 @@ public class WebhookUseCaseImpl implements WebhookUseCase
         try {
             LOGGER.info("[WebhookUseCaseImpl.handle] Evento recebido, eventMessage = {}", eventMessage);
 
-            WebhookEventOutputDTO parsedEvent = starkbankService.parseInvoiceEvent(eventMessage, signature);  /* Passo 1 */
-            if (parsedEvent == null || parsedEvent.subscription() == null) return;
-            if (!"invoice".equals(parsedEvent.subscription())) return;
+            // 1
+            WebhookEventOutputDTO eventDTO = parserService.parseInvoiceEvent(eventMessage, signature);
+            if (eventDTO == null) return;
 
-            eventRepository.save(parsedEvent); /* Passo 2 */
+            // 2
+            eventRepository.save(eventDTO);
 
-            //TODO: Definir um Enum para o event.type()
-            if (!"paid".equals(parsedEvent.type())) return; /* Passo 3 */
+            // 3
+            InvoiceTransactionDomain transaction = new InvoiceTransactionDomain(
+                    eventDTO.amountReceivedInCents().longValue(),
+                    eventDTO.feeInCents().longValue(),
+                    eventDTO.invoiceLogType()
+            );
 
-            long received = parsedEvent.amountReceived().longValue();
-            long fee = parsedEvent.fee().longValue();
-            long net = Math.max(0, received - fee); /* Passo 4 */
+            if (!transaction.isEligibleForTransfer(eventDTO.invoiceLogType())) {
+                LOGGER.info("[Webhook] Evento com status {} não elegível.", eventDTO.invoiceLogType());
+                return;
+            }
 
-            UUID transferId = sandboxClient.createTransfer(net); /* Passo 5 */
+            // 4
+            long amountToTransfer = transaction.calculateNetValue();
 
-            receiptRepository.save(parsedEvent, transferId, received, net); /* Passo 6 */
-        } catch (Exception e) {
-            //TODO: Definir uma exception própria para esse ponto e colocar uma mensagem de erro aqui
-            throw new RuntimeException(e);
+            // 5
+            String transferId = transferClient.createTransfer(amountToTransfer);
+
+            // 6
+            receiptRepository.save(eventDTO, transferId, amountToTransfer);
+        } catch (InsufficientFundsForTransferException ex) {
+            LOGGER.warn("[Webhook] Transferência abortada: {}", ex.getMessage());
+            throw new RuntimeException(ex);
         }
     }
 }

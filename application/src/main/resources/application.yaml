@@ -9,7 +9,7 @@ spring:
     url: jdbc:h2:mem:mydb
     username: sa
     password: password
-    driverClassName: org.h2.Driver
+    driver-class-name: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
   h2:
@@ -25,3 +25,16 @@ springdoc:
   info:
     title: "Desafio Técnico - Starkbank"
     version: "1.0.0"
+
+starkbank:
+  environment: sandbox
+  project-id: "6044659793002496"
+  private-key: |
+    -----BEGIN EC PARAMETERS-----
+    BgUrgQQACg==
+    -----END EC PARAMETERS-----
+    -----BEGIN EC PRIVATE KEY-----
+    MHQCAQEEIEwaY4ob52Y/lPidbatz+pPnlLp8rKZpt0P1faHgMvJxoAcGBSuBBAAK
+    oUQDQgAEGcrNp88o3vZ75mGECvWIHWnYZaGl8nB8i2diCRtQozF95yD1WIFiNDhA
+    zh05aTAJHWlIeOTSGYInOQXeZlnfxg==
+    -----END EC PRIVATE KEY-----

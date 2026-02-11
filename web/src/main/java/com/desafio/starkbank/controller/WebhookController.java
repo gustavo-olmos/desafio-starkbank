@@ -1,6 +1,6 @@
 package com.desafio.starkbank.controller;
 
-import com.desafio.starkbank.boundary.WebhookUseCase;
+import com.desafio.starkbank.boundary.usecases.WebhookUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;

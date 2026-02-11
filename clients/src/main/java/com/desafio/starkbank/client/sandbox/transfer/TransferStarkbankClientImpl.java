@@ -1,23 +1,21 @@
-package com.desafio.starkbank.client.sandbox;
+package com.desafio.starkbank.client.sandbox.transfer;
 
-import com.desafio.starkbank.boundary.clients.StarkbankSandboxClient;
+import com.desafio.starkbank.boundary.clients.TransferClient;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 @AllArgsConstructor
-public class StarkbankSandboxClientImpl implements StarkbankSandboxClient
+public class TransferStarkbankClientImpl implements TransferClient
 {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     //private final RestTemplate restTemplate;
 
     @Override
-    public UUID createTransfer(Long net) {
+    public String createTransfer(Long net) {
         try {
             //TODO: Um log aqui
             /*
@@ -34,7 +32,7 @@ public class StarkbankSandboxClientImpl implements StarkbankSandboxClient
                 ));
                 return transfer.id;
             */
-            return UUID.fromString("cd743a26-67a6-4185-80f0-d4b7d28e6f81");
+            return "cd743a26-67a6-4185-80f0-d4b7d28e6f81";
         } catch (Exception e) {
             //TODO: Exception específica para esse carinha aqui + um log
             throw new RuntimeException(e);
