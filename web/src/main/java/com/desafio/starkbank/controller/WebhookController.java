@@ -16,7 +16,7 @@ public class WebhookController
     private final WebhookUseCase useCase;
 
     @PostMapping
-    @Operation(summary = "Adiciona lembrete")
+    @Operation(summary = "Processa um evento de alteração dos detalhes de fatura")
     public ResponseEntity<Void> receive(
             @RequestBody String eventMessage,
             @RequestHeader(name = "Digital-Signature", required = false) String signature

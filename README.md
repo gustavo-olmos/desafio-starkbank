@@ -18,7 +18,15 @@ Construir uma aplicação backend capaz de:
 
 ---
 
+## Swagger em Produção
+
+Teste a aplicação em produção a partir da url: https://desafio-starkbank-production.up.railway.app/desafio-starkbank/swagger-ui/index.html
+
+---
+
 ## Arquitetura do Projeto
+
+![Uploading DesafioTecnico-Fluxo Aplicação.drawio.svg…](assets/DesafioTecnico-Fluxo.svg)
 
 O projeto foi estruturado em múltiplos módulos Maven:
 
@@ -112,22 +120,6 @@ docker run -p 8080:8080 desafio-starkbank
 
 ---
 
-## Deploy no Railway
-
-No Railway, o comando de start deve apontar corretamente para o jar gerado:
-
-Exemplo:
-
-```bash
-java -jar application/target/*.jar
-```
-
-Ou:
-
-```bash
-java -jar output/target/*.jar
-```
-
 Certifique-se de que:
 
 * O módulo correto está sendo buildado
@@ -154,4 +146,3 @@ Este projeto foi estruturado com foco em:
 * Manutenibilidade
 * Escalabilidade
 * Organização profissional de código
-
