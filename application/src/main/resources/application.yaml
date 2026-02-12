@@ -27,6 +27,14 @@ springdoc:
     version: "1.0.0"
 
 starkbank:
-  environment: ${STARKBANK_ENV:sandbox}
-  project-id: ${STARKBANK_PROJECT_ID}
-  private-key: ${STARKBANK_PRIVATE_KEY}
+  environment: sandbox
+  project-id: "6044659793002496"
+  private-key: |
+    -----BEGIN EC PARAMETERS-----
+    BgUrgQQACg==
+    -----END EC PARAMETERS-----
+    -----BEGIN EC PRIVATE KEY-----
+    MHQCAQEEIEwaY4ob52Y/lPidbatz+pPnlLp8rKZpt0P1faHgMvJxoAcGBSuBBAAK
+    oUQDQgAEGcrNp88o3vZ75mGECvWIHWnYZaGl8nB8i2diCRtQozF95yD1WIFiNDhA
+    zh05aTAJHWlIeOTSGYInOQXeZlnfxg==
+    -----END EC PRIVATE KEY-----
