@@ -2,15 +2,17 @@ package com.desafio.starkbank.client.sandbox.invoice;
 
 import com.desafio.starkbank.boundary.clients.InvoiceClient;
 import com.desafio.starkbank.boundary.dto.InvoiceCreationRequestDTO;
+import com.desafio.starkbank.boundary.exception.BusinessException;
+import com.desafio.starkbank.boundary.exception.InvoiceCreationException;
 import com.starkbank.Invoice;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -19,27 +21,37 @@ public class InvoiceStarkbankClientImpl implements InvoiceClient {
 
     @Override
     public void createInvoices(List<InvoiceCreationRequestDTO> bodyRequests) {
-        LOGGER.info("[InvoiceEmitterUseCaseImpl.processInvoiceIssueJob] Job para produção de faturas acionado!");
-
-        List<Invoice> invoices = new ArrayList<>();
+        LOGGER.info("[InvoiceEmitterUseCaseImpl.createInvoices] Iniciando produção de {} faturas.", bodyRequests.size());
 
         try {
-            for (InvoiceCreationRequestDTO request : bodyRequests) {
-                invoices.add(new Invoice(
-                                new HashMap<>() {{
-                                    put("amount", request.amount());
-                                    put("name", request.name());
-                                    put("taxId", request.taxId());
-                                    put("due", request.dueDate().toString());
-                                    put("expiration", request.expiration());
-                                    put("tags", request.tags());
-                                }}
-                        )
-                );
-            }
+            List<Invoice> invoices = bodyRequests.stream()
+                    .map(this::convertToInvoice)
+                    .toList();
+
             Invoice.create(invoices);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (Exception ex) {
+            LOGGER.error("Erro ao processar lote de faturas. ", ex);
+            throw new InvoiceCreationException("Falha ao emitir faturas em lote. " + ex.getMessage());
+        }
+    }
+
+    private Invoice convertToInvoice(InvoiceCreationRequestDTO request) {
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("amount", request.amount());
+            params.put("name", request.name());
+            params.put("taxId", request.taxId());
+            params.put("due", request.dueDate().toString());
+            params.put("expiration", request.expiration());
+
+            if (request.tags() != null) {
+                params.put("tags", request.tags().toArray(new String[0]));
+            }
+
+            return new Invoice(params);
+        } catch (Exception ex) {
+            LOGGER.error("Falha na conversão dos parâmetros para Invoice", ex);
+            throw new BusinessException("Erro ao converter DTO para Invoice: " + ex.getMessage());
         }
     }
 }

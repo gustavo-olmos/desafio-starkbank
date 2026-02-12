@@ -11,7 +11,7 @@ public class InvoiceIssuerJob
 {
     private final InvoiceEmitterUseCase useCase;
 
-    @Scheduled(cron = "0 */3 * * *")
+    @Scheduled(cron = "0 0/3 * * * ?")
     public final void invoiceIssueJob() {
         useCase.processInvoiceIssueJob();
     }

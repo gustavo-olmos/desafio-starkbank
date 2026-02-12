@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(path = "/api/v1/webhook")
+@RequestMapping(path = "/v1/webhook")
 @Tag(name = "Webhook", description = "Operações para webhook de recebimento de fatura")
 public class WebhookController
 {
